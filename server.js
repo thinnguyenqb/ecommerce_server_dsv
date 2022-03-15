@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const { graphqlHTTP } = require("express-graphql")
+const schema = require("./graphql/schema")
 
 const app = express();
 app.use(express.json());
@@ -22,6 +24,14 @@ mongoose.connect(URL, {
 app.get('/', (req, res, next) => {
     res.json({msg: "Hello everyone!"});
 });
+
+app.use(
+    "/graphql",
+    graphqlHTTP({
+      schema: schema,
+      graphiql: true,
+    })
+  )
 
 
 const PORT = process.env.PORT || 3001
