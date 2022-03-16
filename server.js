@@ -23,19 +23,24 @@ mongoose.connect(URL, {
     console.log("Connected to mongdb!");
 })
 
-// const server = new ApolloServer({
-// 	typeDefs,
-// 	resolvers,
-// 	context: () => ({ mongoDataMethods })
-// })
-
 const app = express();
 app.use(express.json());
 app.use(cors());
-//server.applyMiddleware({ app })
+
+let apolloServer = null;
+async function startServer() {
+    apolloServer = new ApolloServer({
+        typeDefs,
+        resolvers,
+        context: () => ({ mongoDataMethods })
+    });
+    const server = await apolloServer.start();
+    apolloServer.applyMiddleware({ app });
+}
+startServer();
 
 app.get('/', (req, res, next) => {
-    res.json({msg: "Hello everyone!"});
+    res.json({msg: "Hello world!"});
 });
 
 // Routes
@@ -43,5 +48,5 @@ app.use('/user', require('./routes/user.routes'));
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log('Server is running on port', PORT);
+    console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
 });

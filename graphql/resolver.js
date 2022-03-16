@@ -3,6 +3,8 @@ const resolvers = {
 	Query: {
 		products: async (parent, args, { mongoDataMethods }) =>
 			await mongoDataMethods.getAllProducts(),
+    product: async (parent, { id }, { mongoDataMethods }) =>
+			await mongoDataMethods.getProductById(id),
 	},
 
 	// MUTATION
