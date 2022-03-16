@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    name: {
       type: String,
       required: true
     },
@@ -23,10 +23,6 @@ const userSchema = new mongoose.Schema(
     isVerify: {
       type: Boolean,
       required: true,
-    },
-    displayName: {
-      type: String,
-      required: true
     },
   },
   { timestamps: true }

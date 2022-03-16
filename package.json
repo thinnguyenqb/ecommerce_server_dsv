@@ -12,6 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "apollo-server": "^3.6.4",
+        "apollo-server-express": "^3.6.4",
         "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
         "cors": "^2.8.5",
