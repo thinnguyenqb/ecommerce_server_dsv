@@ -2,12 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
-const { graphqlHTTP } = require("express-graphql")
-const schema = require("./graphql/schema")
+const { ApolloServer } = require('apollo-server-express')
 
-const app = express();
-app.use(express.json());
-app.use(cors());
+// Load schema & resolvers
+const typeDefs = require('./graphql/schema')
+const resolvers = require('./graphql/resolver')
+
+// Load db methods
+const mongoDataMethods = require('./data/db')
 
 // Connect to mongodb
 const URL = process.env.MONGODB_URL;
@@ -21,21 +23,25 @@ mongoose.connect(URL, {
     console.log("Connected to mongdb!");
 })
 
+// const server = new ApolloServer({
+// 	typeDefs,
+// 	resolvers,
+// 	context: () => ({ mongoDataMethods })
+// })
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+//server.applyMiddleware({ app })
+
 app.get('/', (req, res, next) => {
     res.json({msg: "Hello everyone!"});
 });
 
-app.use(
-    "/graphql",
-    graphqlHTTP({
-      schema: schema,
-      graphiql: true,
-    })
-  )
-
+// Routes
+app.use('/user', require('./routes/user.routes'));
 
 const PORT = process.env.PORT || 3001
-
 app.listen(PORT, () => {
     console.log('Server is running on port', PORT);
 });

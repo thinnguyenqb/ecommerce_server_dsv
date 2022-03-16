@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: false
     },
     email: {
       type: String,
@@ -24,6 +23,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    role: {
+      type: String,
+      default: 'customer'
+    }
   },
   { timestamps: true }
 )
