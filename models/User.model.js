@@ -2,13 +2,14 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    name: { type: String, required: true },
+    password: { type: String, required: true },
+    isVerify: { type: Boolean, required: true },
+    role: { type: String, default: 'customer' },
+    avatar: {
       type: String,
-      required: true
-    },
-    password: {
-      type: String,
-      required: true,
+      default:
+        "https://res.cloudinary.com/ericnguyen-cop/image/upload/v1642046858/Classroom/fkwfz8i072rrbu3im9ol.png",
     },
     email: {
       type: String,
@@ -19,14 +20,6 @@ const userSchema = new mongoose.Schema(
         "Please enter a valid email"
       ]
     },
-    isVerify: {
-      type: Boolean,
-      required: true,
-    },
-    role: {
-      type: String,
-      default: 'customer'
-    }
   },
   { timestamps: true }
 )

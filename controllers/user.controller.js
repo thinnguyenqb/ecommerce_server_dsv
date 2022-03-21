@@ -84,7 +84,6 @@ const userController = {
       );
       
       const user = await User.findOne({ email });
-      console.log(user);
       if (user) {
         user.isVerify = true;
         await user.save();
@@ -153,7 +152,7 @@ const createAccessToken = (payload) => {
 
 const createActivationToken = (payload) => {
   return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {
-    expiresIn: '15m'
+    expiresIn: '1d'
   })
 }
 
