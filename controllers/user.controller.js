@@ -142,6 +142,20 @@ const userController = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  updateUser: async (req, res) => {
+    try {
+      const { name } = req.body;
+      await User.findOneAndUpdate(
+        { _id: req.user.id },
+        {
+          name: name,
+        }
+      );
+      res.status(200).json({ msg: "Update success!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };
 
 const createAccessToken = (payload) => {

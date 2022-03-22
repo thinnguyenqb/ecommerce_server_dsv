@@ -45,6 +45,7 @@ app.get('/', (req, res, next) => {
 
 // Routes
 app.use('/user', require('./routes/user.routes'));
+app.use('/category', require('./routes/category.routes'));
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
