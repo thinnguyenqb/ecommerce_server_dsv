@@ -16,6 +16,20 @@ const productSchema = new mongoose.Schema(
     },
     productImageUrl: { type: Array, required: true },
     productDescription: { type: String, required: true },
+    rate: {type: Number, default: 1 },
+    status: {
+      type: String,
+      enum: ['In-store', 'Out of stock'],
+      default: 'In-store'
+    },
+    quantity: {
+      type: Number,
+      required: true
+    },
+    soldQuantity: {
+      type: Number,
+      default: 0
+    },
   },
   { timestamps: true }
 )

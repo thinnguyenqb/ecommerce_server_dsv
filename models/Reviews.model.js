@@ -7,7 +7,7 @@ const reviewSchema = new mongoose.Schema(
     productId: { type: Schema.Types.ObjectId },
     title: { type: String, required: true, },
     comment: { type: String, required: true, },
-    rating: { type: Number, required: true, },
+    star: { type: Number, default: 1, required: true, },
   },
   { timestamps: true }
 )
