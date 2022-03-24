@@ -27,6 +27,15 @@ const productController = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  createProduct: async (req, res) => {
+    try {
+      
+      
+      res.status(200).json("");
+      } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  }
 };
 
 module.exports = productController;

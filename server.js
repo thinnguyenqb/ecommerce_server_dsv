@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const fileUpload = require('express-fileupload');
 const { ApolloServer } = require('apollo-server-express')
 
 // Load schema & resolvers
@@ -26,6 +27,9 @@ mongoose.connect(URL, {
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(fileUpload({
+    useTempFiles: true
+}))
 
 let apolloServer = null;
 async function startServer() {
@@ -47,6 +51,7 @@ app.get('/', (req, res, next) => {
 app.use('/user', require('./routes/user.routes'));
 app.use('/category', require('./routes/category.routes'));
 app.use('/product', require('./routes/product.routes'));
+app.use('/api/upload_img', require('./routes/upload.routes'));
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
