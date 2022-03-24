@@ -24,12 +24,17 @@ const productSchema = new mongoose.Schema(
     },
     quantity: {
       type: Number,
-      required: true
+      required: true,
+      default: 0
     },
     soldQuantity: {
       type: Number,
       default: 0
     },
+    review: {
+      type: [{ type: mongoose.Schema.Types.Object, ref: "Review" }],
+      default: []
+  },
   },
   { timestamps: true }
 )
