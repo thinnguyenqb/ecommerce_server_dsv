@@ -6,7 +6,9 @@ router.get('/', productCtrl.getList)
 
 router.get('/:id', productCtrl.getItem)
 
-router.post('/', productCtrl.createProduct);
+router.post('/', productCtrl.create);
+
+router.put('/:id', productCtrl.update);
 
 
 

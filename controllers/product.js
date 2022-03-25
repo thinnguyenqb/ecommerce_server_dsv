@@ -1,4 +1,5 @@
 const Product = require('../models/Product.model')
+const User = require('../models/User.model')
 const mongoose = require("mongoose")
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -20,14 +21,36 @@ const productController = {
         {
           $match: { _id: ObjectId(id) }
         },
+        {
+          $lookup:
+          {
+            from: "reviews",
+            localField: "review",
+            foreignField: "_id",
+            as: "review",
+          }
+        },
       ]);
-      
-      res.status(200).json({ product: item[0] });
+
+      const reviewUser = [];
+      for (let i = 0; i < item[0].review.length; i++){
+        const res = await User.findById(item[0].review[i].userId)
+        reviewUser.push({
+          ...item[0].review[i],
+          userName: res.name,
+          userAvatar: res.avatar,
+        })
+      }
+      const resultData = {
+        ...item[0],
+        review: reviewUser
+      }
+      res.status(200).json({ product: resultData });
       } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
-  createProduct: async (req, res) => {
+  create: async (req, res) => {
     try {
       
       
@@ -35,7 +58,16 @@ const productController = {
       } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
-  }
+  },
+  update: async (req, res) => {
+    try {
+      const { products } = req.body;
+      
+      res.json({ products });
+    } catch (err) {
+        return res.status(500).json({ msg: err.message });
+    }
+},
 };
 
 module.exports = productController;

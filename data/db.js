@@ -1,5 +1,5 @@
 const Product = require('../models/Product.model');
-const Reviews = require('../models/Reviews.model');
+const Reviews = require('../models/Review.model');
 
 const mongoDataMethods = {
   getAllProducts: async () => await Product.find(),

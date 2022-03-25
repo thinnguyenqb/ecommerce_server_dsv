@@ -1,4 +1,4 @@
-const Review = require('../models/Reviews.model')
+const Review = require('../models/Review.model')
 const Product = require('../models/Product.model')
 const { ObjectId } = require('bson');
 
