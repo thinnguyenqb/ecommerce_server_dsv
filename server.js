@@ -53,6 +53,8 @@ app.use('/category', require('./routes/category.routes'));
 app.use('/product', require('./routes/product.routes'));
 app.use('/api/review', require('./routes/review.routes'));
 app.use('/api/upload_img', require('./routes/upload.routes'));
+app.use('/api/order', require('./routes/order.routes'));
+app.use('/api/order_item', require('./routes/orderItem.routes'));
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {

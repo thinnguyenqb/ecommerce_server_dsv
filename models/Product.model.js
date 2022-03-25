@@ -14,6 +14,11 @@ const productSchema = new mongoose.Schema(
       M: Number,
       L: Number
     },
+    productColor: {
+      type: Array,
+      required: true,
+      default: ["#ff5f6d", "#5f6dff", "#4d4d4d", "#ff7413", "#ecafd8", "#e2e2e2"]
+    },
     productImageUrl: { type: Array, required: true },
     productDescription: { type: String, required: true },
     rate: {type: Number, default: 1 },
