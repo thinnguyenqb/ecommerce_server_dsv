@@ -1,8 +1,9 @@
 const Review = require('../models/Review.model')
 const Product = require('../models/Product.model')
+const User = require('../models/User.model')
 const { ObjectId } = require('bson');
 
-const categoryController = {
+const reviewController = {
   getList: async (req, res) => {
     try {
       const reviews = await Review.find();
@@ -36,9 +37,16 @@ const categoryController = {
       product.review.push(review._id)
       product.save()
 
+      const user = await User.findById(userId)
+      const result = {
+        ...review._doc,
+        userName: user.name,
+        userAvatar: user.avatar
+      }
+
       res.status(200).json({
         msg: "Create review successful!",
-        review
+        result
       })
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -60,4 +68,4 @@ const categoryController = {
   },
 };
 
-module.exports = categoryController;
+module.exports = reviewController;
