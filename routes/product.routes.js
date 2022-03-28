@@ -4,6 +4,8 @@ const productCtrl = require('../controllers/product')
 
 router.get('/', productCtrl.getList)
 
+router.post('/', productCtrl.productFilter);
+
 router.get('/:id', productCtrl.getItem)
 
 router.post('/', productCtrl.create);

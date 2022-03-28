@@ -18,4 +18,6 @@ router.get('/infor', auth, userController.getUserInfor)
 
 router.patch('/update', auth, userController.updateUser)
 
+router.post('/seller-login', userController.login)
+
 module.exports = router
