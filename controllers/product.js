@@ -17,65 +17,63 @@ const productController = {
   },
   productFilter: async (req, res) => {
     try {
-      //console.log(req.body)
-      // http://localhost:3001/product?category=men&kind=tops&sub=T-Shirts&order=ASC&page=1&perPage=10&sort=name
-      // "sub": "",
-      // "page": "",
-      // "perPage": "",
-      // "sort": "",
-      // "order": "",
-      // "size": "",
-      // "price": "",
-      // "perPrize": "",
-      // "search": ""
-      
       const { category, kind, sub, page, perPage, sort, order, size, price, perPrice, search } = req.body
-      console.log({ category, kind, sub, page, perPage, sort, order, size, price, perPrice, search })
+      //console.log({ category, kind, sub, page, perPage, sort, order, size, price, perPrice, search })
 
       const categoryFilter = category ?? '';
       const kindFilter = kind ?? '';
       const subFilter = sub ?? '';
-      const startRange = page ?? 0;
-      const limitRange = perPage ?? 7;
-      const sortName = sort ?? "productName";
+      const startRange = page ?? 1;
+      const limitRange = perPage ?? 10;
+      const sortName = sort ?? "productPrice";
       const orderData = order ?? "ASC";
       const startPrice = price ?? 0;
       const endPrice = perPrice ?? 1000;
       const nameProduct = search ?? '';
       const sizeData = size ?? "S";
-
-      //console.log(startRange, endRange)
-      if (subFilter === '') {
+      
+      if (categoryFilter === '' && kindFilter === '') {
+        let query = {"productName": { '$regex': nameProduct }};
         const productList = await Product
-          .find({
-            "productName": { '$regex': nameProduct },
-            "productCategory": categoryFilter,
-            "productKindCategory": kindFilter,
-            "productPrice": { "$gte": startPrice, "$lte": endPrice }
-          })
+          .find(query)
           .sort([[sortName, orderData]])
-          .limit(limitRange - startRange + 1)
-          .skip(Number(startRange))
+          .limit(limitRange)
+          .skip((startRange-1)*limitRange)
         
-          res.status(200).json({ products: productList });
+        const totalPage = await Product.countDocuments(query);
+
+        res.status(200).json({
+          products: productList,
+          totalPage,
+        });
       }
+      let query = {
+        "productName": { '$regex': nameProduct },
+        "productCategory": categoryFilter,
+        "productKindCategory": kindFilter,
+        "productPrice": { "$gte": startPrice, "$lte": endPrice }
+      };
+
+
       if (subFilter !== '') {
-        const productList = await Product
-        .find({
-          "productName": { '$regex': nameProduct },
-          "productCategory": categoryFilter,
-          "productKindCategory": kindFilter,
+        query = {
+          ...query,
           "productSubCategory": {"$in" : [subFilter]},
-          "productPrice": { "$gte": startPrice, "$lte": endPrice }
-        })
-        .sort([[sortName, orderData]])
-        .limit(limitRange - startRange + 1)
-        .skip(Number(startRange))
-        
-        res.status(200).json({ products: productList });
+        };
       }
 
-      // "productStock": {"$elemMatch": {'size': sizeData}},
+      const productList = await Product
+          .find(query)
+          .sort([[sortName, orderData]])
+          .limit(limitRange)
+          .skip((startRange-1)*limitRange)
+        
+        const totalPage = await Product.countDocuments(query);
+
+        res.status(200).json({
+          products: productList,
+          totalPage,
+        });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
