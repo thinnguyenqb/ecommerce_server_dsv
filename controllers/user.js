@@ -130,6 +130,29 @@ const userController = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  changePassword: async (req, res) => {
+    try {
+      const { cur_password, password } = req.body;
+      const user = await User.findById(req.user.id)
+      if (!user)
+        return res.status(400).json({ msg: "This user does not exist." });
+
+      const isMatch = await bcrypt.compare(cur_password, user.password);
+      if (!isMatch)
+        return res.status(400).json({ msg: "Current password is incorrect." });
+      
+      const passwordHash = await bcrypt.hash(password, 12);
+      await User.findOneAndUpdate(
+        { _id: req.user.id },
+        {
+          password: passwordHash,
+        }
+      );
+      res.json({ msg: "Password successfully changed!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
   getUserInfor: async (req, res) => {
     try {
       const user = await User.findById(req.user.id).select("-password");

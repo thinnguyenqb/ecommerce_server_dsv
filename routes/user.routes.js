@@ -12,6 +12,8 @@ router.post('/forgot', userController.forgotPassword)
 
 router.post('/reset', auth, userController.resetPassword)
 
+router.post('/change', auth, userController.changePassword)
+
 router.get('/infor', auth, userController.getUserInfor)
 
 //router.get('/logout', userController.logout)
