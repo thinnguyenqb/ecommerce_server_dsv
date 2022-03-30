@@ -1,4 +1,5 @@
 const User = require('../models/User.model');
+const InvalidToken = require('../models/InvalidToken.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sendMail = require("./sendMail");
@@ -108,14 +109,18 @@ const userController = {
       const url = `${CLIENT_URL}/user/reset/${access_token}`;
 
       sendMail(email, url, "Reset your password");
-      res.json({ msg: "Re-send the password, please check your email." });
+      res.status(200).json({ msg: "Re-send the password, please check your email." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
   resetPassword: async (req, res) => {
     try {
-      const { password } = req.body;
+      const { password, token } = req.body;
+
+      const check = await InvalidToken.findOne({ token })
+      if (check)
+      return res.status(400).json({ msg: "This token does invalid." });
     
       const passwordHash = await bcrypt.hash(password, 12);
       await User.findOneAndUpdate(
@@ -124,6 +129,8 @@ const userController = {
           password: passwordHash,
         }
       );
+
+      await InvalidToken.create({ token: token })
 
       res.json({ msg: "Password successfully changed!" });
     } catch (err) {
