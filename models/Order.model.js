@@ -1,19 +1,16 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const orderSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: 'Customer',
       required: true,
     },
-    total: {
+    totalPrice: {
       type: Number,
       required: true,
-    },
-    orderItem: {
-      type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'OrderItem' }],
-      default: [],
     },
     status: {
       type: String,

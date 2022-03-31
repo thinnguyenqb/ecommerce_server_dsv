@@ -9,7 +9,7 @@ const productController = {
     try {
       const list = await Product.find();
       
-      res.status(200).json({ products: productList });
+      res.status(200).json({ products: list });
       
     } catch (err) {
       return res.status(500).json({ msg: err.message });

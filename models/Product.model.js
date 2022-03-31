@@ -44,4 +44,6 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+productSchema.index({ first: 1, last: -1 }, { unique: true })
+
 module.exports = mongoose.model("Product", productSchema)
