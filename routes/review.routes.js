@@ -2,14 +2,14 @@ const router = require('express').Router();
 const reviewController = require('../controllers/review');
 const auth = require('../middleware/auth');
 
-router.get('/', reviewController.getList)
+router.get('/', auth, reviewController.getList)
 
-router.get('/:id', reviewController.getItem)
+router.get('/:id', auth, reviewController.getItem)
 
-router.post('/', reviewController.create)
+router.post('/', auth, reviewController.create)
 
-router.put('/:id', reviewController.update)
+router.put('/:id', auth, reviewController.update)
 
-router.delete('/:id', reviewController.delete)
+router.delete('/:id', auth, reviewController.delete)
 
 module.exports = router
