@@ -36,10 +36,6 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
-    review: {
-      type: [{ type: mongoose.Schema.Types.Object, ref: "Review" }],
-      default: []
-  },
   },
   { timestamps: true }
 )

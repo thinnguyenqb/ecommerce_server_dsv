@@ -13,11 +13,17 @@ const reviewController = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  getItem: async (req, res) => {
+  getListItem: async (req, res) => {
     try {
-      const review = await Review.findOne({ _id: req.params.id })
-      res.status(200).json(review)
-      
+      const dataResult = []
+      const productId = req.params.id
+      const reviews = await Review.find()
+      for (let i = 0; i < reviews.length; i++){
+        if ((reviews[i].productId) == productId) {
+          dataResult.push(reviews[i])
+        }
+      }
+      res.status(200).json(dataResult)
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -25,18 +31,14 @@ const reviewController = {
   create: async (req, res) => {
     try {
       const { productId, userId, title, comment, star } = req.body;
-
       const review = await Review.create({
         userId: new ObjectId(userId),
+        productId: new ObjectId(productId),
         title,
         comment,
         star
       })
       
-      const product = await Product.findById(productId)
-      product.review.push(review._id)
-      product.save()
-
       const user = await User.findById(userId)
       const result = {
         ...review._doc,

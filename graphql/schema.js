@@ -2,21 +2,21 @@ const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
   type productStock {
-    S: Int
-    M: Int
-    L: Int
-  }
-
-  input FilterOptionInput {
     size: String
+    sum: Int
+    color: String
   }
 
-  input GetProductsInput {
-    category: String!
-    kind: String!
-    sub: String
-    filterOptions: FilterOptionInput
-  }
+  # input FilterOptionInput {
+  #   size: String
+  # }
+
+  # input GetProductsInput {
+  #   category: String!
+  #   kind: String!
+  #   sub: String
+  #   filterOptions: FilterOptionInput
+  # }
 
   type Product {
     id: ID
@@ -27,7 +27,7 @@ const typeDefs = gql`
     productPrice: Int
     productBrand: String
     productImageUrl: [String]
-    productStock: productStock
+    productStock: [productStock]
     productDescription: String
   }
 
@@ -35,7 +35,7 @@ const typeDefs = gql`
   type Query {
     products: [Product]
     product (id: ID!): Product
-    getProducts(input: GetProductsInput!): [Product]
+    # getProducts(input: GetProductsInput!): [Product]
   }
 `
 

@@ -97,18 +97,21 @@ const productController = {
       ]);
 
       const reviewUser = [];
-      for (let i = 0; i < item[0].review.length; i++){
-        const res = await User.findById(item[0].review[i].userId)
-        reviewUser.push({
-          ...item[0].review[i],
-          userName: res.name,
-          userAvatar: res.avatar,
-        })
-      }
+      console.log(item[0].review.length)
+      // for (let i = 0; i < item[0].review.length; i++){
+      //   const res = await User.findById(item[0].review[i].userId)
+      //   reviewUser.push({
+      //     ...item[0].review[i],
+      //     userName: res.name,
+      //     userAvatar: res.avatar,
+      //   })
+      // }
       const resultData = {
         ...item[0],
         review: reviewUser
       }
+
+      //console.log(resultData)
       res.status(200).json({ product: resultData });
       } catch (err) {
       return res.status(500).json({ msg: err.message });

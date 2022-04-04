@@ -2,9 +2,9 @@ const router = require('express').Router();
 const reviewController = require('../controllers/review');
 const auth = require('../middleware/auth');
 
-router.get('/', auth, reviewController.getList)
+router.get('/', reviewController.getList)
 
-router.get('/:id', auth, reviewController.getItem)
+router.get('/:id', reviewController.getListItem)
 
 router.post('/', auth, reviewController.create)
 
