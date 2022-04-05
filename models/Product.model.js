@@ -9,11 +9,7 @@ const productSchema = new mongoose.Schema(
     productSubCategory: { type: Array, required: true },
     productBrand: { type: String, required: true},
     productPrice: { type: Number, required: true },
-    productStock: {
-      S: Number,
-      M: Number,
-      L: Number
-    },
+    productStock: { type: Array, required: true },
     productColor: {
       type: Array,
       required: true,

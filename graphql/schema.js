@@ -1,22 +1,23 @@
 const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
-  type productStock {
+  type ProductStock {
     size: String
     sum: Int
     color: String
   }
 
-  # input FilterOptionInput {
-  #   size: String
-  # }
+  input FilterOptionInput {
+    size: String
+  }
 
-  # input GetProductsInput {
-  #   category: String!
-  #   kind: String!
-  #   sub: String
-  #   filterOptions: FilterOptionInput
-  # }
+  input GetProductsInput {
+    page: String,
+    perPage: String, 
+    sort: String, 
+    order: String, 
+    search: String
+  }
 
   type Product {
     id: ID
@@ -24,18 +25,47 @@ const typeDefs = gql`
     productCategory: String
     productKindCategory: String
     productSubCategory: [String]
-    productPrice: Int
     productBrand: String
+    productPrice: Int
     productImageUrl: [String]
-    productStock: [productStock]
+    productStock: [ProductStock]
     productDescription: String
+    quantity: Int
+    soldQuantity: Int
+    updatedAt: String
+  }
+
+  type User {
+    id: ID
+    name: String
+    avatar: String
+  }
+
+  type OrderItem {
+    _id: ID
+    totalPrice: Int
+    color: String
+    size: String
+    quantity: Int
+    total: String
+    createdAt: String
+  }
+
+  type Order {
+    _id: ID!
+    userId: ID
+    totalPrice: Int
+    status: String
+    createdAt: String
+    orderItems: [OrderItem]
   }
 
   #ROOT TYPE
   type Query {
     products: [Product]
     product (id: ID!): Product
-    # getProducts(input: GetProductsInput!): [Product]
+    getProducts(input: GetProductsInput!): [Product]
+    orders: [Order]
   }
 `
 
