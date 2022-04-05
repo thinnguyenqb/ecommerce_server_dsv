@@ -13,7 +13,7 @@ const resolvers = {
 			await mongoDataMethods.getOrders(),
 	  },
 	// MUTATION
-
+  
 }
 
 module.exports = resolvers

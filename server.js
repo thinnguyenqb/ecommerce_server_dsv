@@ -7,7 +7,7 @@ const { ApolloServer } = require('apollo-server-express')
 
 // Load schema & resolvers
 const typeDefs = require('./graphql/schema')
-const resolvers = require('./graphql/resolver')
+const resolvers = require('./graphql/resolvers')
 
 // Load db methods
 const mongoDataMethods = require('./data/db')

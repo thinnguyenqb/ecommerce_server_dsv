@@ -1,0 +1,39 @@
+# Types
+type ProductStock {
+  size: String
+  sum: Int
+  color: String
+}
+
+type Product{ 
+  id: ID
+  productName: String
+  productCategory: String
+  productKindCategory: String
+  productSubCategory: [String]
+  productBrand: String
+  productPrice: Int
+  productImageUrl: [String]
+  productStock: [ProductStock]
+  productDescription: String
+  quantity: Int
+  soldQuantity: Int
+  createdAt: String
+}
+
+# Inputs
+
+input GetProductsInput {
+  page: String,
+  perPage: String, 
+  sort: String, 
+  order: String, 
+  search: String
+}
+# input ProductCreateInput {
+#   name: String!
+# }
+
+# input ProductUpdateInput {
+#   name: String
+# }

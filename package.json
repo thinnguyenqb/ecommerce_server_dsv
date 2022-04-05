@@ -11,6 +11,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@graphql-tools/schema": "^8.3.6",
         "apollo-server": "^3.6.4",
         "apollo-server-express": "^3.6.4",
         "bcrypt": "^5.0.1",
@@ -30,6 +31,7 @@
         "node-fetch": "^2.6.7",
         "nodemailer": "^6.7.2",
         "passport": "^0.4.1",
+        "path": "^0.12.7",
         "util": "^0.12.4"
     },
     "devDependencies": {

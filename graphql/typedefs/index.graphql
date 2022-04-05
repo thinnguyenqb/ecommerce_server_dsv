@@ -1,0 +1,12 @@
+type Query {
+  # Products
+  products: [Product]
+  product(id: ID!): Product
+  getProducts(input: GetProductsInput!): [Product]
+}
+
+# type Mutation {
+#   # Products
+#   createBook(book: BookCreateInput!): Book!
+#   updateBook(id: ID!, book: BookUpdateInput!): Book!
+# }

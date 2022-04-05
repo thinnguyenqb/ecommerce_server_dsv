@@ -6,7 +6,6 @@ const OrderItem = require('../models/OrderItem.model');
 const mongoDataMethods = {
   getAllProducts: async () => {
     const res = await Product.find()
-    console.log(res[0].productStock)
     return res
   },
   getProductById: async (id) => await Product.findById(id),
@@ -27,7 +26,6 @@ const mongoDataMethods = {
       .skip((startRange-1)*limitRange)
     
     const totalPage = await Product.countDocuments(query);
-    console.log((productList))
     // console.log((productList[1].productStock))
     return productList
   },
@@ -43,7 +41,7 @@ const mongoDataMethods = {
         }
       }
     ])
-    console.log(res)
+    //console.log(res)
     return res
   },
 };
