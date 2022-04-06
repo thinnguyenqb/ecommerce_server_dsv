@@ -19,30 +19,26 @@ type OrderItem {
     createdAt: String
 }
 
-type CartList {
-    id: ID
-    productId: ID,
-    sizeOption: String,
-    pieceAvailable: Int,
-    colorOption: String,
-    price: Int,
-    productImg: String,
-    productName: String,
-    quantity: Int,
-    itemTotal: Int
-}
+# type CartList {
+#     id: String
+#     productId: ID
+#     sizeOption: String
+#     pieceAvailable: Int
+#     colorOption: String
+#     price: Int
+#     productImg: String
+#     productName: String
+#     quantity: Int
+#     itemTotal: Int
+# }
 
 # input OrderCreateInput {
-#   listProduct: [CartList!]
-#   totalPrice: Int!
-#   userId: String!
+#     listProduct: [CartList]
+#     totalPrice: Int!
+#     userId: String!
 # }
 
 input OrderUpdateInput {
-  status: String!
-  orderId: ID!
+    status: String!
+    orderId: ID!
 }
-
-# input OrderUpdateInput {
-#   name: String
-# }

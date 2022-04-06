@@ -10,10 +10,8 @@ type Query {
 
 type Mutation {
   # Products
-  # createBook(book: BookCreateInput!): Book!
-  # updateBook(id: ID!, book: BookUpdateInput!): Book!
 
   # Orders
-  # createOrder(input: OrderCreateInput!): Order
+  #createOrder(input: OrderCreateInput!): Order
   updateOrder(input: OrderUpdateInput!): [Order]
 }

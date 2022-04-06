@@ -47,22 +47,21 @@ const orderController = {
   create: async (req, res) => {
     try {
       const { listProduct, totalPrice } = req.body;
-      console.log(listProduct)
-      // const order = await Order.create({
-      //   userId: new ObjectId(req.user.id),
-      //   totalPrice: totalPrice
-      // })
+      const order = await Order.create({
+        userId: new ObjectId(req.user.id),
+        totalPrice: totalPrice
+      })
 
-      // listProduct.forEach(element => {
-      //   OrderItem.create({
-      //     productId: new ObjectId(element.productId),
-      //     orderId: order._id,
-      //     color: element.colorOption,
-      //     size: element.sizeOption,
-      //     quantity: element.quantity,
-      //     total: element.itemTotal
-      //   })
-      // })
+      listProduct.forEach(element => {
+        OrderItem.create({
+          productId: new ObjectId(element.productId),
+          orderId: order._id,
+          color: element.colorOption,
+          size: element.sizeOption,
+          quantity: element.quantity,
+          total: element.itemTotal
+        })
+      })
 
       res.status(200).json({
         msg: "Order Successfully Placed",
