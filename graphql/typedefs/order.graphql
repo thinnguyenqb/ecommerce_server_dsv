@@ -1,0 +1,48 @@
+# Types
+type Order {
+    _id: ID!
+    userId: ID
+    totalPrice: Int
+    status: String
+    createdAt: String
+    orderItems: [OrderItem]
+}
+
+type OrderItem {
+    _id: ID
+    totalPrice: Int
+    color: String
+    size: String
+    quantity: Int
+    total: String
+    productName: String
+    createdAt: String
+}
+
+type CartList {
+    id: ID
+    productId: ID,
+    sizeOption: String,
+    pieceAvailable: Int,
+    colorOption: String,
+    price: Int,
+    productImg: String,
+    productName: String,
+    quantity: Int,
+    itemTotal: Int
+}
+
+# input OrderCreateInput {
+#   listProduct: [CartList!]
+#   totalPrice: Int!
+#   userId: String!
+# }
+
+input OrderUpdateInput {
+  status: String!
+  orderId: ID!
+}
+
+# input OrderUpdateInput {
+#   name: String
+# }

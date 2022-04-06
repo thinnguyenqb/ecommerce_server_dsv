@@ -3,10 +3,17 @@ type Query {
   products: [Product]
   product(id: ID!): Product
   getProducts(input: GetProductsInput!): [Product]
+
+  #Order
+  orders: [Order]
 }
 
-# type Mutation {
-#   # Products
-#   createBook(book: BookCreateInput!): Book!
-#   updateBook(id: ID!, book: BookUpdateInput!): Book!
-# }
+type Mutation {
+  # Products
+  # createBook(book: BookCreateInput!): Book!
+  # updateBook(id: ID!, book: BookUpdateInput!): Book!
+
+  # Orders
+  # createOrder(input: OrderCreateInput!): Order
+  updateOrder(input: OrderUpdateInput!): [Order]
+}

@@ -30,7 +30,7 @@ const mongoDataMethods = {
     return productList
   },
   getOrders: async () => {
-    const res = await Orders.aggregate([
+    const orderList = await Orders.aggregate([
       {
         $lookup:
         {
@@ -41,8 +41,58 @@ const mongoDataMethods = {
         }
       }
     ])
-    //console.log(res)
-    return res
+
+    const data = []
+    for (let i = 0; i < orderList.length; i++){
+      const orderItemList = [];
+      for (let j = 0; j < orderList[i].orderItems.length; j++){
+        const product = await Product.findById(orderList[i].orderItems[j].productId.toString())
+        orderItemList.push({
+          ...orderList[i].orderItems[j],
+          productName: product.productName
+        })
+      }
+      data.push({
+        ...orderList[i],
+        orderItems: orderItemList
+      })
+    }
+    return data
+  },
+  updateOrder: async (data) => {
+    const { status, orderId } = data.input;
+    const order = await Orders.findById(orderId)
+    order.status = status
+    await order.save()
+    
+    const orderList = await Orders.aggregate([
+      {
+        $lookup:
+        {
+          from: "orderItems",
+          localField: "_id",
+          foreignField: "orderId",
+          as: "orderItems"
+        }
+      },
+    ])
+
+    const dataResult = []
+    for (let i = 0; i < orderList.length; i++){
+      const orderItemList = [];
+      for (let j = 0; j < orderList[i].orderItems.length; j++){
+        const product = await Product.findById(orderList[i].orderItems[j].productId.toString())
+        orderItemList.push({
+          ...orderList[i].orderItems[j],
+          productName: product.productName
+        })
+      }
+      dataResult.push({
+        ...orderList[i],
+        orderItems: orderItemList
+      })
+    }
+    return dataResult
   },
 };
 
