@@ -8,7 +8,7 @@ router.post('/', productCtrl.productFilter);
 
 router.get('/:id', productCtrl.getItem)
 
-router.post('/', productCtrl.create);
+router.post('/create', productCtrl.create);
 
 router.put('/:id', productCtrl.update);
 

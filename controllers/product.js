@@ -119,9 +119,29 @@ const productController = {
   },
   create: async (req, res) => {
     try {
+      const {
+        productName,
+        productCategory,
+        productKindCategory,
+        productSubCategory,
+        productBrand,
+        productStock,
+        productDescription,
+        productPrice
+      } = req.body;
+
+      const product = await Product.create({
+        productName,
+        productCategory,
+        productKindCategory,
+        productSubCategory,
+        productBrand,
+        productStock,
+        productDescription,
+        productPrice
+      })
       
-      
-      res.status(200).json("");
+      res.status(200).json("Create product successfull", product);
       } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

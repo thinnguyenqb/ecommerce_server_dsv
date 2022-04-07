@@ -15,7 +15,12 @@ const productSchema = new mongoose.Schema(
       required: true,
       default: ["#ff5f6d", "#5f6dff", "#4d4d4d", "#ff7413", "#ecafd8", "#e2e2e2"]
     },
-    productImageUrl: { type: Array, required: true },
+    productImageUrl: {
+      type: Array, required: true,
+      default:
+        ["https://media.everlane.com/image/upload/c_fill,w_384,ar_1:1,q_auto,dpr_1.0,g_face:center,f_auto,fl_progressive:steep/i/6468c616_25c7",
+        "https://media.everlane.com/image/upload/c_fill,w_384,ar_1:1,q_auto,dpr_1.0,g_face:center,f_auto,fl_progressive:steep/i/4af2b4e2_d910"]
+    },
     productDescription: { type: String, required: true },
     rate: {type: Number, default: 1 },
     status: {
