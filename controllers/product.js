@@ -140,8 +140,8 @@ const productController = {
         productDescription,
         productPrice
       })
-      
-      res.status(200).json("Create product successfull", product);
+
+      res.status(200).json({ msg: "Create product successful", product });
       } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
