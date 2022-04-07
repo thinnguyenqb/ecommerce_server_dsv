@@ -3,6 +3,8 @@ const OrderItem = require('../models/OrderItem.model')
 const Product = require('../models/Product.model')
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
+const sendMailOrder = require("./sendMailOrder");
+const User = require("../models/User.model")
 
 const orderController = {
   getList: async (req, res) => {
@@ -62,6 +64,9 @@ const orderController = {
           total: element.itemTotal
         })
       })
+      const user = await User.findById(req.user.id)
+      // console.log(user)
+      sendMailOrder(user, order, "Your order has been pending!");
 
       res.status(200).json({
         msg: "Order Successfully Placed",

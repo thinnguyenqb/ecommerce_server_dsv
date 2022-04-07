@@ -18,8 +18,7 @@ const oauth2Client = new OAuth2(
 )
 
 //send mail
-const sendEmail = async (mail, url, txt) => {
-    console.log(mail)
+const sendMailOrder = async (user, order, mes) => {
     oauth2Client.setCredentials({
         refresh_token: MAILING_SERVICE_REFRESH_TOKEN
     })
@@ -38,26 +37,23 @@ const sendEmail = async (mail, url, txt) => {
     })
     const mailOptions = {
         from: `DSV SHOP <${SENDER_EMAIL_ADDRESS}>`,
-        to: mail,
-        subject: "WELCOME TO THE ECOMMERCE SHOP",
+        to: user.email,
+        subject: `${mes}`,
         html: `
-            <div style="max-width: 700px; margin:auto; border: 5px solid #ddd; border-radius: 10px; padding: 30px 20px; font-size: 100%;">
+                <div style="max-width: 700px; margin:auto; border: 5px solid #ddd; border-radius: 10px; padding: 30px 20px; font-size: 100%;">
                 <h2 style="text-align: center; text-transform: uppercase; color: teal;">
-                    Welcome to the Ecommerce Shop.
+                   ${mes}
                 </h2>
-                <p>Congratulations! You're almost set to start shopping.
-                    Just click the button below to validate your email address.
-                </p>
-                <div>
-                    <a href=${url} style="background: crimson; text-decoration: none; 
-                    color: white; padding: 10px 20px; border-radius: 5px;
-                    margin: 10px 0; display: inline-block;">
-                    ${txt}</a>
-                </div>
-            
-                <p>If the button doesn't work for any reason, you can also click on the link below:</p>
-            
-                <div>${url}</div>
+                <p style="font-weight: 600">Hello, ${user.name}</p>
+                <p>You order has been confirmed and will be shipped in next two days!</p>
+                <p>Order Date: ${order.createdAt}</p>
+                <p>Order No: ${order._id}</p>
+                <div>Payment: <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" width="20" /></span></div>
+                <p>Shiping Address: 135B Tran Hung Dao - Q1</p>
+                <p>Subtotal: ${order.totalPrice}.00$</p>
+                 
+                <p>We will be sending shipping confirmation email when the item shipped successfully!</p>
+                <p>Thanks for shopping with us!</p>
             </div>
         `
     }
@@ -68,4 +64,4 @@ const sendEmail = async (mail, url, txt) => {
     })
 }
 
-module.exports = sendEmail
+module.exports = sendMailOrder
