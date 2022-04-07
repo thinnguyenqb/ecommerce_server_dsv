@@ -2,6 +2,9 @@ const Product = require('../models/Product.model');
 const Reviews = require('../models/Review.model');
 const Orders = require('../models/Order.model');
 const OrderItem = require('../models/OrderItem.model');
+const User = require('../models/User.model');
+const sendMailOrder = require("../controllers/sendMailOrder");
+
 
 const mongoDataMethods = {
   getAllProducts: async () => {
@@ -64,6 +67,13 @@ const mongoDataMethods = {
     const order = await Orders.findById(orderId)
     order.status = status
     await order.save()
+
+    const user = await User.findById(order.userId)
+    if (status === 'completed') {
+      sendMailOrder(user, order, "Your order is successful!");
+    }else if(status === 'canceled'){
+      sendMailOrder(user, order, "Order canceled!");
+    }
     
     const orderList = await Orders.aggregate([
       {
