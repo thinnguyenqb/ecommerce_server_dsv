@@ -54,21 +54,21 @@ const userController = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-      const user = await User.findOne({ email });
+      const user = await User.find({ email });
       if (!user)
         return res.status(400).json({ msg: "This email does not exist." });
-
-      const isMatch = await bcrypt.compare(password, user.password);
+      
+      const isMatch = await bcrypt.compare(password, user[0].password);
       if (!isMatch)
         return res.status(400).json({ msg: "Password is incorrect." });
-
-      const access_token = createAccessToken({ id: user._id});
+      
+      const access_token = createAccessToken({ id: user[0]._id});
 
       res.status(200).json({
         msg: "Login successful!",
         access_token: access_token,
         user: {
-          ...user._doc,
+          ...user[0]._doc,
           password: "",
         },
       });

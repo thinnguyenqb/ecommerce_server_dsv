@@ -14,7 +14,7 @@ const mongoDataMethods = {
   getProductById: async (id) => await Product.findById(id),
   getProducts: async (data) => {
     const { page, perPage, sort, order, search } = data.input;
-    console.log({ page, perPage, sort, order, search })
+    //console.log({ page, perPage, sort, order, search })
     const sortName = sort ?? "productName";
     const orderData = order ?? "ASC";
     const startRange = page ?? 1;

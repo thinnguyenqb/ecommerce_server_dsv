@@ -97,7 +97,7 @@ const productController = {
       ]);
 
       const reviewUser = [];
-      console.log(item[0].review.length)
+      //console.log(item[0].review.length)
       // for (let i = 0; i < item[0].review.length; i++){
       //   const res = await User.findById(item[0].review[i].userId)
       //   reviewUser.push({

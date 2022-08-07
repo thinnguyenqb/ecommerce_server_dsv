@@ -15,7 +15,7 @@ const uploadController = {
                 folder: 'Ecommerce', crop: "fill"
             }, async (err, result) => {
                 if(err) throw err;
-                res.json({url: result.secure_url})
+                res.json({ url: result.secure_url })
             })
         }catch(err){
             return res.status(500).json({msg: err.message})
